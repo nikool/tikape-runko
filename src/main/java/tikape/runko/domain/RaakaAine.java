@@ -1,14 +1,14 @@
 
 package tikape.runko.domain;
 
-public class Pizza {
+public class RaakaAine {
     
     private Integer id;
     private String nimi;
-    
-    public Pizza(Integer id, String nimi) {
-        this.nimi = nimi;
+
+    public RaakaAine(Integer id, String nimi) {
         this.id = id;
+        this.nimi = nimi;
     }
 
     public Integer getId() {

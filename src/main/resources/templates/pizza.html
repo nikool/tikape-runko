@@ -7,14 +7,21 @@
     </head>
 
     <body>
-        <h1 style="font-family: sans-serif">Pizzakirjasto</h1>
+        <h1 style="font-family: sans-serif"><span th:text="${pizza.nimi}">pizza</span></h1>
 
-        <p style="font-family: sans-serif">Tällä sovelluksella voit tarkastella valmiita pizzareseptejä, lisätä uusia tai muokata jo olemassa olevia.</p>
+        <p style="font-family: sans-serif">Tässä pizzan <span th:text="${pizza.nimi}">pizza</span> resepti:</p>
+        
+        <ol style="font-family: sans-serif">
+            <li th:each="rivi: ${rivit}">
+                <span th:text="${rivi}">rivi</span>
+            </li>
+        </ol>
         
         <ul style="font-family: sans-serif">
-            <li><a href="/pizzat">Tästä resepteihin</a></li>
+            <li><a href="/pizzat">Tästä resepteihin.</a></li>
             <li><a href="/muokkaa">Tästä luomaan uutta reseptiä, tai muokkaamaan olemassa olevaa.</a></li>
             <li><a href="/lisaaRaakaAineita">Tästä lisäämään raaka-aineita.</a></li>
+            <li><a href="/">Tästä etusivulle.</a></li>
         </ul>
     </body>
 </html>

@@ -7,21 +7,20 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import tikape.runko.domain.Pizza;
 import tikape.runko.domain.RaakaAine;
 
-public class PizzaDao implements Dao<Pizza, Integer> {
+public class RaakaAineDao implements Dao<RaakaAine, Integer> {
     
     private Database database;
     
-    public PizzaDao(Database database) {
+    public RaakaAineDao(Database database) {
         this.database = database;
     }
     
     @Override
-    public Pizza findOne(Integer key) throws SQLException {
+    public RaakaAine findOne(Integer key) throws SQLException {
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Pizza WHERE id = ?");
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM RaakaAine WHERE id = ?");
         stmt.setObject(1, key);
 
         ResultSet rs = stmt.executeQuery();
@@ -33,35 +32,35 @@ public class PizzaDao implements Dao<Pizza, Integer> {
         Integer id = rs.getInt("id");
         String nimi = rs.getString("nimi");
 
-        Pizza p = new Pizza(id, nimi);
+        RaakaAine ra = new RaakaAine(id, nimi);
 
         rs.close();
         stmt.close();
         connection.close();
 
-        return p;
+        return ra;
     }
     
     @Override
-    public List<Pizza> findAll() throws SQLException {
+    public List<RaakaAine> findAll() throws SQLException {
 
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Pizza");
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM RaakaAine");
 
         ResultSet rs = stmt.executeQuery();
-        List<Pizza> pizzat = new ArrayList<>();
+        List<RaakaAine> raakaAineet = new ArrayList<>();
         while (rs.next()) {
             Integer id = rs.getInt("id");
             String nimi = rs.getString("nimi");
 
-            pizzat.add(new Pizza(id, nimi));
+            raakaAineet.add(new RaakaAine(id, nimi));
         }
 
         rs.close();
         stmt.close();
         connection.close();
 
-        return pizzat;
+        return raakaAineet;
     }
     
     @Override
@@ -69,15 +68,15 @@ public class PizzaDao implements Dao<Pizza, Integer> {
         // ei toteutettu
     }
     
-    public Pizza saveOrUpdate(Pizza object) throws SQLException {
-        Pizza byName = findByName(object.getNimi());
+    public RaakaAine saveOrUpdate(RaakaAine object) throws SQLException {
+        RaakaAine byName = findByName(object.getNimi());
         
         if (byName != null) {
             return byName;
         }
         
         try (Connection conn = database.getConnection()) {
-            PreparedStatement stmt = conn.prepareStatement("INSERT INTO Pizza (nimi) VALUES (?)");
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO RaakaAine (nimi) VALUES (?)");
             stmt.setString(1, object.getNimi());
             stmt.executeUpdate();
         }
@@ -85,9 +84,9 @@ public class PizzaDao implements Dao<Pizza, Integer> {
         return findByName(object.getNimi());
     }
     
-    public Pizza findByName(String nimi) throws SQLException {
+    public RaakaAine findByName(String nimi) throws SQLException {
         try (Connection conn = database.getConnection()) {
-            PreparedStatement stmt = conn.prepareStatement("SELECT id, nimi FROM Pizza WHERE nimi = ?");
+            PreparedStatement stmt = conn.prepareStatement("SELECT id, nimi FROM RaakaAine WHERE nimi = ?");
             stmt.setString(1, nimi);
 
             ResultSet result = stmt.executeQuery();
@@ -95,7 +94,7 @@ public class PizzaDao implements Dao<Pizza, Integer> {
                 return null;
             }
 
-            return new Pizza(result.getInt("id"), result.getString("nimi"));
+            return new RaakaAine(result.getInt("id"), result.getString("nimi"));
         }
     }
 }

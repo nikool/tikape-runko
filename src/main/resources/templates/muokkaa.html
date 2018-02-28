@@ -1,0 +1,53 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <title>Pizzakirjasto</title>
+        <meta charset="utf-8" />
+    </head>
+
+    <body>
+        <h1 style="font-family: sans-serif">Lisää pizza</h1>
+        
+        <p style="font-family: sans-serif">Lista sovelluksessa olevista pizzoista:</p>
+        
+        <ul style="font-family: sans-serif">
+            <li th:each="pizza: ${pizzat}">
+                <span th:text="${pizza.nimi}">pizzan nimi</span>
+            </li>
+        </ul>
+   
+        <p style="font-family: sans-serif">Täällä voit luoda uusia reseptejä sovellukseen lisätyistä raaka-aineista, tai muokata jo olemassa olevia.</p>
+        <p style="font-family: sans-serif">Jos haluat ensin lisätä uusia raaka-aineita, klikkaa <a href="/lisaaRaakaAineita">tästä.</a></p>
+        
+        <h2 style="font-family: sans-serif">Lisää uusi pizza</h2>
+        
+        <form method="POST" action="/lisaaPizza">
+            <span>Nimi:</span><br/>
+            <input type="text" name="nimi"/><br/>
+            <input type="submit" value="Lisää pizza"/>
+        </form>
+        
+        <h2 style="font-family: sans-serif">Lisää raaka-aineita</h2>
+        
+        <form method="POST" action="/muokkaa">
+            <span>Pizza:</span><br/>
+            <input type="text" value="Hawaii" name="pizzannimi"/><br/>
+            <span>Täyte:</span><br/>
+            <input type="text" value="kinkku" name="raakaAineenNimi"/><br/>
+            <span>Järjestys (anna kokonaisnumerona arvo, monentenako täyte tulee lisätä:</span><br/>
+            <input type="text" name="jarjestys"/><br/>
+            <span>Kuinka paljon täytettä laitetaan:</span><br/>
+            <input type="text" name="maara"/><br/>
+            <span>Muita ohjeita:</span><br/>
+            <input type="text" name="ohje"/><br/>
+            <input type="submit" value="Lisää"/>
+        </form>
+        
+        <ul style="font-family: sans-serif">
+            <li><a href="/pizzat">Tästä resepteihin.</a></li>
+            <li><a href="/lisaaRaakaAineita">Tästä lisäämään raaka-aineita.</a></li>
+            <li><a href="/">Tästä etusivulle.</a></li>
+        </ul>
+    </body>
+</html>
